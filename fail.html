@@ -1,0 +1,658 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0038)file:///home/rawr/github/temp_shit/123 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>教育部校園安全暨災害防救通報處理中心</title>
+    <link href="file:///Content/css/Front/css.css" rel="stylesheet" type="text/css">
+    
+    <script src="file:///bundles/jquery?v=1A_Qqa6eu1hIFc9O--lfxRqvbqGj9Zd6uAr93zLdrWM1"></script>
+
+    <script src="file:///bundles/FormatValidation?v=VF4vcyB1ZC89DwU6oMIU1wy0NZoovn0coPxVQ1cWWD41"></script>
+
+    <script src="file:///Scripts/jquery.timers.js" type="text/javascript"></script>
+    <script src="file:///Scripts/jsapi.js" type="text/javascript"></script>
+    <script src="file:///Scripts/thickbox2.js" type="text/javascript"></script>
+    <link href="file:///Content/thickbox.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript">
+        $(function () {
+            var $block = $('#abgne_fade_pic'),
+                $ad = $block.find('.ad'),
+                showIndex = 0,			// 預設要先顯示那一張
+                fadeOutSpeed = 1800,	// 淡出的速度
+                fadeInSpeed = 1800,		// 淡入的速度
+                defaultZ = 10,			// 預設的 z-index
+                isHover = false,
+                timer, speed = 3500;	// 計時器及輪播切換的速度
+            // 先把其它圖片的變成透明
+            $ad.css({
+                opacity: 0,
+                zIndex: defaultZ - 1
+            }).eq(showIndex).css({
+                opacity: 1,
+                zIndex: defaultZ
+            });
+
+            // 組出右下的按鈕
+            var str = '';
+            for (var i = 0; i < $ad.length; i++) {
+                str += '<a href="#">' + (i + 1) + '</a>';
+            }
+
+            var $controlA = $('#abgne_fade_pic').append($('<div class="control">' + str + '</div>').css('zIndex', defaultZ + 1)).find('.control a');
+            // 當按鈕被點選時
+            // 若要變成滑鼠滑入來切換時, 可以把 click 換成 mouseover
+            $controlA.click(function () {
+                // 取得目前點擊的號碼
+                showIndex = $(this).text() * 1 - 1;
+                // 顯示相對應的區域並把其它區域變成透明
+                $ad.eq(showIndex).stop().fadeTo(fadeInSpeed, 1, function () {
+                    if (!isHover) {
+                        // 啟動計時器
+                        timer = setTimeout(autoClick, speed);
+                    }
+                }).css('zIndex', defaultZ).siblings('a').stop().fadeTo(fadeOutSpeed, 0).css('zIndex', defaultZ - 1);
+                // 讓 a 加上 .on
+                $(this).addClass('on').siblings().removeClass('on');
+                return false;
+            }).focus(function () {
+                $(this).blur();
+            }).eq(showIndex).addClass('on');
+            $ad.hover(function () {
+                isHover = true;
+                // 停止計時器
+                clearTimeout(timer);
+            }, function () {
+                isHover = false;
+                // 啟動計時器
+                timer = setTimeout(autoClick, speed);
+            })
+            // 自動點擊下一個
+            function autoClick() {
+                if (isHover) return;
+                showIndex = (showIndex + 1) % $controlA.length;
+                $controlA.eq(showIndex).click();
+            }
+            // 啟動計時器
+            timer = setTimeout(autoClick, speed);
+        });
+        function MM_swapImgRestore() { //v3.0
+            var i, x, a = document.MM_sr; for (i = 0; a && i < a.length && (x = a[i]) && x.oSrc; i++) x.src = x.oSrc;
+        }
+        function MM_preloadImages() { //v3.0
+            var d = document; if (d.images) {
+                if (!d.MM_p) d.MM_p = new Array();
+                var i, j = d.MM_p.length, a = MM_preloadImages.arguments; for (i = 0; i < a.length; i++)
+                    if (a[i].indexOf("#") != 0) { d.MM_p[j] = new Image; d.MM_p[j++].src = a[i]; }
+            }
+        }
+
+        function MM_findObj(n, d) { //v4.01
+            var p, i, x; if (!d) d = document; if ((p = n.indexOf("?")) > 0 && parent.frames.length) {
+                d = parent.frames[n.substring(p + 1)].document; n = n.substring(0, p);
+            }
+            if (!(x = d[n]) && d.all) x = d.all[n]; for (i = 0; !x && i < d.forms.length; i++) x = d.forms[i][n];
+            for (i = 0; !x && d.layers && i < d.layers.length; i++) x = MM_findObj(n, d.layers[i].document);
+            if (!x && d.getElementById) x = d.getElementById(n); return x;
+        }
+
+        function MM_swapImage() { //v3.0
+            var i, j = 0, x, a = MM_swapImage.arguments; document.MM_sr = new Array; for (i = 0; i < (a.length - 2) ; i += 3)
+                if ((x = MM_findObj(a[i])) != null) { document.MM_sr[j++] = x; if (!x.oSrc) x.oSrc = x.src; x.src = a[i + 2]; }
+        }
+
+        function LoginSubmitFm() {
+            var strUserID = $('#strUserID').val();
+            var strPwd = $('#strPwd').val();
+            if (strUserID == "")
+            {
+                alert('請輸入帳號');
+                return false;
+            }
+
+            if (strPwd == "") {
+                alert('請輸入密碼');
+                return false;
+            }
+
+            $('#Fm').submit();
+        }
+
+        function LogOutFm(url) {
+            if (confirm("確定登出嗎？")) {
+                window.location.href = url;
+            }
+        }
+
+        jQuery(window).load(function () {
+            //執行倒數計時
+            if ($('#LoginFlag').val() != "") {
+                $('#counter').show();
+                clock();
+            }
+        });
+
+        function logOut() {
+            alert('您已閒置過久，故系統已將您登出');
+            window.location.href = '/Account/LogOut';
+        }
+
+        function enterKeyDown(event) {
+            if (event.keyCode == 13) {
+                LoginSubmitFm();
+            }
+        }
+
+        function clearWord(value) {
+            if (value == '請輸入關鍵字') {
+                document.getElementById('search').value = "";
+            }
+        }
+        function FogPwd(url) {
+            url += "?width=900&height=450";
+            tb_show('忘記密碼', url, null);
+        }
+
+        function SearchData() {
+
+            var value = $('#search').val();
+
+            if (value != "請輸入關鍵字" && value != "") {
+                var url = '/Map/SearchList?search='+ value;
+                window.location.href = url;
+            } else {
+                alert("請輸入您要搜尋的關鍵字");
+                return false;
+            }
+        }
+
+
+        function submitCalamity(value, url)
+        {
+
+            if(CheckValue("rdl_"+value) != "")
+            {
+                if(CheckValue("rdl_"+value) == "Y"){
+                    alert("您點選了有災損，系統將自動幫您導至校安即時通首報。");
+                    window.location.href=url;
+                }else{
+                    ////點選無災損
+                    if(CheckValue('system'+value) == "")
+                    {
+                        alert(' •請選擇您的學制');
+                    }
+
+                    var strUserId = "";
+                    var strAccount = "";
+                    $.ajax({
+                        type: "POST",
+                        url: "/Calamity/SetCalamityStatus",
+                        contentType:"application/x-www-form-urlencoded",
+                        data: "CalamityId=" + value + "&CalamityId=" + value + "&UserId=" + strUserId + "&Account=" + strAccount + "&Status=" + CheckValue("rdl_"+value) + "&system="+ CheckValue("system"+value),
+                        success: function (msg) {
+                            if(msg == "1")
+                            {
+                                alert("已回報無災損");
+                                history.go(0);
+                                //alert("已回報無災損，因應模擬訓練，系統將自動幫您登出");
+                                //window.location.href = "/Account/LogOut";
+                            }
+                            else
+                            {
+                                alert("回報無災損失敗");
+                                history.go(0);
+                            }
+                            //alert(msg);
+                            
+                            //history.go(0);
+
+                        }
+                    });
+
+                }
+            }
+            else
+            {
+                alert(" •請點選【是否有無災損】");
+            }
+        }
+
+        //隱私權
+        function ShowPrivacy(url) {
+            url += "?width=900&height=450";
+            tb_show('隱私權政策', url, null);
+        }
+
+    </script>
+
+<script type="text/javascript">
+        function ReTime() {
+            url = '/Account/ResetTime' + "?TB_iframe=false&width=400&height=180";
+            tb_show_opacity("校安通報系統登出通知", url, false);
+        }
+    </script></head>
+    
+
+<body>
+    <input type="hidden" id="LoginFlag">
+    <div class="downbg">
+        <div class="topMenu">
+                <table summary="影像區編排表格" width="430" border="0" cellpadding="0" cellspacing="0">
+                    <tbody><tr>
+                        <td width="134" valign="top">
+                            <input id="search" name="search" type="text" class="serinput" value="請輸入關鍵字" onclick="clearWord(this.value)"></td>
+                        <td width="71"><a href="file:///home/rawr/github/temp_shit/123#" onclick="SearchData();" class="serchicon" title="搜尋">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
+                        <td width="238"><a accesskey="C" href="file:///" class="topicon1" title="回首頁">回首頁</a><a href="mailto:csrc@mail.moe.gov.tw" class="topicon2" title="意見信箱">意見信箱</a><a href="file:///Map" class="topicon3" title="網站導覽">網站導覽</a></td>
+                    </tr>
+                </tbody></table>
+        </div>
+        <div class="idxWrap">
+            <div class="headerRow">
+                <div class="logo"><a href="file:///">教育部校園安全暨災害防救通報處理中心</a></div>
+
+            </div>
+            <div class="page">
+                <table summary="影像區編排表格" width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td colspan="3">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tbody><tr>
+                                    <td width="220" align="center" valign="top" class="idxpgmen">
+                                        <br>
+                                        <br>
+<form id="Fm" name="Fm" action="file:///" method="post">                                            <table width="200" border="0" cellspacing="0" cellpadding="0">
+
+                                                <tbody><tr>
+                                                    <td colspan="2" align="center">
+                                                        <img src="file:///Content/Images/Front/men_title.jpg"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">&nbsp;</td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="right">&nbsp;帳號：</td>
+                                                    <td><input class="serinput" id="strUserID" name="strUserID" type="text" value="B160001"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td align="right">&nbsp;密碼：</td>
+                                                    <td><input autocomplete="off" class="serinput" id="strPwd" name="strPwd" onkeydown="enterKeyDown(event);" type="password" value=""></td>
+                                                </tr>
+                                                <tr style="height: 34px; vertical-align: bottom">
+                                                    <td align="center" colspan="2">
+                                                        <table width="100%" cellspacing="0" cellpadding="0">
+                                                            <tbody><tr>
+                                                                <td width="50%" align="center"><span onclick="FogPwd(&#39;/Account/ForgetPwd&#39;);" style="cursor:pointer" class="forgetbtn">忘記密碼</span></td>
+                                                                <td width="50%" align="left"><a href="file:///home/rawr/github/temp_shit/123#" onclick="LoginSubmitFm();" class="loginbtn">登入</a></td>
+                                                            </tr>
+                                                        </tbody></table>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">&nbsp;</td>
+                                                </tr>
+                                            </tbody></table>
+</form>
+                                        <!--menu左方主選單-->
+                                        <div class="menutitle">導覽選單</div>
+                                        <ul class="leftmenu">
+                                            <li><a href="file:///BriefIntroduction">校安簡介</a></li>
+                                            <li><a href="file:///JobBank">校安人力</a></li>
+                                            <li><a href="file:///BulletinBoard/NewsIndex">最新消息</a></li>
+                                            <li><a href="file:///LawRelation">相關法規</a></li>
+                                            <li><a href="file:///FileManage">下載專區</a></li>
+                                            <li><a href="file:///RelatedLink">相關連結</a></li>
+                                            <li><a href="file:///Learning">研習活動</a></li>
+                                            <li><a href="file:///FAQ">FAQ</a></li>
+                                            <li><a href="https://csrc.edu.tw/CsrcWeb" target="_blank">舊版校安系統</a></li>
+                                            <li><a href="https://csrc.edu.tw/PracticeNewCsrc" target="_blank">校安系統練習版</a></li>
+                                        </ul>
+                                        <ul class="link">
+                                            <marquee direction="up" scrollamount="2" scrolldelay="10" id="xiaoqing" onmouseover="xiaoqing.stop()" onmouseout="xiaoqing.start()">
+                                            <li><a target="_blank" href="https://csrc.edu.tw/CsrcDrugs/"><img width="172px" height="40px" src="file:///Content/WebSiteImage/20140121124230-007.jpg"></a></li>
+                                            <li><a target="_blank" href="https://csrc.edu.tw/bully/"><img width="172px" height="40px" src="file:///Content/WebSiteImage/20140121124119-004.jpg"></a></li>
+                                            <li><a target="_blank" href="http://enc.moe.edu.tw/"><img width="172px" height="40px" src="file:///Content/WebSiteImage/20140121123713-20130826090518_logo_01.jpg"></a></li>
+                                            <li><a target="_blank" href="https://csrc.edu.tw/NewCsrcHouse/"><img width="172px" height="40px" src="file:///Content/WebSiteImage/20140121124048-003.jpg"></a></li>
+                                            <li><a target="_blank" href="https://csrcsahb.moe.edu.tw/index.php?target=login.php"><img width="172px" height="40px" src="file:///Content/WebSiteImage/20140121124015-002.jpg"></a></li>
+                                            <li><a target="_blank" href="http://rich.nyc.gov.tw/"><img width="172px" height="40px" src="file:///Content/WebSiteImage/20140121124207-006.JPG"></a></li>
+                                            <li><a target="_blank" href="http://www.taiwanjobs.gov.tw/Internet/index/index.aspx"><img width="172px" height="40px" src="file:///Content/WebSiteImage/20150730055525-%E5%8F%B0%E7%81%A3%E5%B0%B1%E6%A5%AD%E9%80%9A.jpg"></a></li>
+                                            <li><a target="_blank" href="http://www.165.gov.tw/"><img width="172px" height="40px" src="file:///Content/WebSiteImage/20140416032340-165icon.jpg"></a></li>
+                                            </marquee>
+                                            <a href="file:///RelatedWebSite" class="more">更多</a>
+                                            <div class="clear"></div>
+                                        </ul>
+                                    </td>
+                                    <td valign="top" class="idxpgmid">
+                                        <div class="topright">
+                                            <div class="clear"></div>
+                                        </div>
+                                        <div class="flashBanner">
+                                            <div id="abgne_fade_pic">
+                                                <a target="_blank" href="http://enc.moe.edu.tw/" class="ad">
+                                                    <img src="file:///Content/Images/Front/1s.jpg" alt="banner圖片"></a>
+                                                <a target="_blank" href="https://csrc.edu.tw/bully/" class="ad">
+                                                    <img src="file:///Content/Images/Front/2s.jpg" alt="banner圖片"></a>
+                                                <a target="_blank" href="https://csrc.edu.tw/NewCsrcHouse" class="ad">
+                                                    <img src="file:///Content/Images/Front/ban1.jpg" alt="banner圖片"></a>
+                                                <a target="_blank" href="https://csrcsahb.moe.edu.tw/index.php?target=login.php" class="ad">
+                                                    <img src="file:///Content/Images/Front/ban2.jpg" alt="banner圖片"></a>
+                                                <a target="_blank" href="https://csrc.edu.tw/CsrcDrugs/" class="ad">
+                                                    <img src="file:///Content/Images/Front/ban3.jpg" alt="banner圖片"></a>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="idxnew">
+                                            <div class="idxnewtd">
+                                                <!--災損專區-->
+                                                <table summary="影像區編排表格" width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="idxnew">
+                                            <div class="idxnt">
+                                                
+                                                <table summary="影像區編排表格" width="100%" border="0" cellspacing="4" cellpadding="4">
+                                                    <tbody><tr>
+                                                        <td style="width:15%">
+                                                            <a href="file:///Account/Index" class="newtitb">最新消息</a>
+                                                        </td>
+                                                        
+                                                        <td align="left">
+
+                                                            &nbsp;　　&nbsp;
+                                                        </td>
+                                                    </tr>
+                                                </tbody></table>
+                                                <div class="idxnewtd">
+                                                    <!--公告區-->
+                                                    <form id="SearchFm" name="SearchFm" method="post">
+                                                    <table summary="影像區編排表格" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                <!--最新消息-->
+                                                                <tbody><tr>
+                                                                    <th width="15%" align="center">日    期</th>
+                                                                    <th width="15%" align="center">類別</th>
+                                                                    <th width="55%" align="left">標    題</th>
+                                                                    <th width="15%" align="center">承辦人</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="day">2015/08/21
+                                                                        <br>
+                                                                    </td>
+                                                                    <td align="center" class="green">
+                                                                        <p>重要公告<br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p>
+                                                                            <a href="file:///BulletinBoard/CheckData?sno=1305&MergedId=073d5b93870f472a8c43b54e76d8e59b">中央氣象局今(21)日14時30分發布大雨特報!!</a>
+                                                                            <br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>邱光慶<br></p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="day">2015/08/20
+                                                                        <br>
+                                                                    </td>
+                                                                    <td align="center" class="green">
+                                                                        <p>重要公告<br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p>
+                                                                            <a href="file:///BulletinBoard/CheckData?sno=1304&MergedId=a7d0c69f74774f5296d3032263348568">「天鵝颱風」今(20)日已轉為強烈颱風，請各級學校、館所及幼兒園至本部校安中心網頁電子公布欄點閱「天鵝颱風」整備通報，加強防颱整備各項工作，嚴防淹水、坍方、落石、土石流，並請加強掌握學校師生參加戶外活動情形及完成「天鵝颱風整備系統」填報作業。</a>
+                                                                            <br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>邱光慶<br></p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="day">2015/08/14
+                                                                        <br>
+                                                                    </td>
+                                                                    <td align="center" class="green">
+                                                                        <p>重要公告<br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p>
+                                                                            <a href="file:///BulletinBoard/CheckData?sno=1301&MergedId=292e536969bc4b71bea0fa4f6e405b45">請各級學校及幼兒園於104年9月1日前，至內政部臺灣COME(抗)震網(http://www.comedrill.com.tw/)完成註冊相關事宜(註冊操作手冊請參考並自行下載運用)!!</a>
+                                                                            <br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>邱光慶<br></p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="day">2015/08/14
+                                                                        <br>
+                                                                    </td>
+                                                                    <td align="center" class="green">
+                                                                        <p>重要公告<br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p>
+                                                                            <a href="file:///BulletinBoard/CheckData?sno=1300&MergedId=c04957a58fa54a22a9f1c869bd5fe23d">104年國家防災日地震避難掩護演練高中職以下學制學校預演日期填報系統，預計於104年8月17日起開放於「表報作業區」進行填報!!</a>
+                                                                            <br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>邱光慶<br></p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="day">2015/08/12
+                                                                        <br>
+                                                                    </td>
+                                                                    <td align="center" class="green">
+                                                                        <p>校園安全<br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p>
+                                                                            <a href="file:///BulletinBoard/CheckData?sno=1299&MergedId=60bc153c00474d6eb1c5c6e1d32abbf6">重申各校應落實「發現學生遭受不法組織網路賭博危害事件通報處理流程」及輔導作為</a>
+                                                                            <br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>洪嘉良<br></p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="day">2015/08/11
+                                                                        <br>
+                                                                    </td>
+                                                                    <td align="center" class="green">
+                                                                        <p>重要公告<br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p>
+                                                                            <a href="file:///BulletinBoard/CheckData?sno=1298&MergedId=593fd2a2144f4eb6a8670b47cfe9634c">本部「104年度國家防災日各級學校及幼兒園地震避難掩護演練實施計畫」已公告於電子公佈欄，請各單位與學校據以辦理相關事宜</a>
+                                                                            <br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>邱光慶<br></p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="day">2015/08/10
+                                                                        <br>
+                                                                    </td>
+                                                                    <td align="center" class="green">
+                                                                        <p>重要公告<br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p>
+                                                                            <a href="file:///BulletinBoard/CheckData?sno=1296&MergedId=358e8d11d8b94c618fbc0d408d502a19">各級學校、館所及幼兒園若有災損，請完成「0806蘇迪勒颱風」校安通報作業(請先登入本部校安中心後，網頁首頁將有提示功能，可進行校安通報作業，若原先無災損，目前學校有災情，請透過校安即時通進行校安通報-首報作業)，相關操作說明請至下載專區參考「天然災害整備及災害事件通報操作手冊簡報」!!</a>
+                                                                            <br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>邱光慶<br></p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="day">2015/08/07
+                                                                        <br>
+                                                                    </td>
+                                                                    <td align="center" class="green">
+                                                                        <p>災害防救<br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p>
+                                                                            <a href="file:///BulletinBoard/CheckData?sno=1294&MergedId=22805d8c8e844574ba17cee31bc8a3a7">大雨特報</a>
+                                                                            <br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>系統管理者<br></p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="day">2015/08/07
+                                                                        <br>
+                                                                    </td>
+                                                                    <td align="center" class="green">
+                                                                        <p>重要公告<br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p>
+                                                                            <a href="file:///BulletinBoard/CheckData?sno=1289&MergedId=94b97c0b042543058e18e127998a57bc">8月7日5時30分中央氣象局發布豪雨特報!!</a>
+                                                                            <br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>邱光慶<br></p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="day">2015/08/04
+                                                                        <br>
+                                                                    </td>
+                                                                    <td align="center" class="green">
+                                                                        <p>重要公告<br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td>
+                                                                        <p>
+                                                                            <a href="file:///BulletinBoard/CheckData?sno=1288&MergedId=5158d56420934a84bc48011a88177674">教育部校安中心蘇迪勒颱風整備通報已公告，請儘速點閱電子公布欄據以加強防颱整備及維護校安工作。</a>
+                                                                            <br>
+                                                                        </p>
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>邱光慶<br></p>
+                                                                    </td>
+                                                                </tr>
+                                                        </tbody></table>
+                                                    </form>
+                                                </div>
+
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td width="14" valign="top" class="idxpgrig">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td class="page_d_left"></td>
+                                    <td valign="bottom" class="idxpgdown">【<span style="cursor:pointer" onclick="ShowPrivacy(&#39;/Account/Privacy&#39;)">隱私權宣告</span>】【<a href="file:///Account/InfoSecurity">資訊安全宣告</a>】</td>
+                                    <td valign="top" class="page_d_right"></td>
+                                </tr>
+                            </tbody></table>
+                        </td>
+                        </tr><tr>
+                </tr></tbody></table>
+            </div>
+            
+        </div>
+        <div class="footer">
+                <table summary="影像區編排表格" width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td nowrap="nowrap"><strong>校安中心地址</strong>：(100-50)台北市忠孝東路1段172號4樓   　
+
+                            &nbsp;&nbsp;<strong>傳真</strong>：(02)3343-7920、3343-7863
+                            
+                            <br>
+                            <strong>系統服務諮詢：市訊資訊有限公司</strong> <span>(02)5573-0706</span><span>&nbsp; &nbsp; &nbsp; &nbsp;　</span>
+                            <a href="mailto:service@cityinfo.com.tw" title="service@cityinfo.com.tw"><strong><u>系統操作服務信箱</u>：</strong>service@cityinfo.com.tw</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:csrc@mail.moe.gov.tw" title="csrc@mail.moe.gov.tw"><strong><u>教育部校安中心信箱</u>：</strong>csrc@mail.moe.gov.tw</a>
+                            
+                            <br>
+
+                            建議使用Internet Explorer7.0以上版本，瀏覽器及解析度1024*768 </td>
+                        <td align="right">瀏覽人次：4616875 | 目前線上人數：165
+                            <br>
+                            最後更新日期：2015/08/27</td>
+                    </tr>
+                </tbody></table>
+            </div>
+    </div>
+
+
+
+<script type="text/javascript">
+
+    
+
+
+    function result() {
+        window.location = '/Account/Index?bulletin_cate=B';
+
+    }
+    function submitFm() {
+        $('#page').val('1');
+        document.forms["SearchFm"].submit();
+    }
+
+    function checkNoCalamity(value, value2)
+    {
+        if(value2 == "Y")
+        {
+            $('#'+value).hide();
+            $('#'+value).find("input[type=radio]").attr("checked", false);
+        }else {
+            $('#'+value).show();
+        }
+    }
+
+    function CalculateClickRate(Sno)
+    {
+        $.ajax({
+            type: "POST",
+            url: "/BulletinBoard/CalculateClickRate",
+            data: "Sno=" + Sno ,
+            success: function (msg) {
+                $('#spanValue_'+Sno).html(msg);
+                $('#span_'+Sno).hide();
+                $('#span2_'+Sno).show();
+            }
+        });
+    }
+
+</script>
+
+  
+        <script>alert('登入失敗');</script>
+
+
+    
+    
+
+	
+    
+    
+
+</body></html>

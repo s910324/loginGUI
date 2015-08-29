@@ -1,0 +1,810 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0038)file:///home/rawr/github/temp_shit/123 -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <title>教育部校園安全暨災害防救通報處理中心</title>
+    <link href="file:///Content/css/Front/css.css" rel="stylesheet" type="text/css">
+    
+    <script src="file:///bundles/jquery?v=1A_Qqa6eu1hIFc9O--lfxRqvbqGj9Zd6uAr93zLdrWM1"></script>
+
+    <script src="file:///bundles/FormatValidation?v=VF4vcyB1ZC89DwU6oMIU1wy0NZoovn0coPxVQ1cWWD41"></script>
+
+    <script src="file:///Scripts/jquery.timers.js" type="text/javascript"></script>
+    <script src="file:///Scripts/jsapi.js" type="text/javascript"></script>
+    <script src="file:///Scripts/thickbox2.js" type="text/javascript"></script>
+    <link href="file:///Content/thickbox.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript">
+        $(function () {
+            var $block = $('#abgne_fade_pic'),
+                $ad = $block.find('.ad'),
+                showIndex = 0,			// 預設要先顯示那一張
+                fadeOutSpeed = 1800,	// 淡出的速度
+                fadeInSpeed = 1800,		// 淡入的速度
+                defaultZ = 10,			// 預設的 z-index
+                isHover = false,
+                timer, speed = 3500;	// 計時器及輪播切換的速度
+            // 先把其它圖片的變成透明
+            $ad.css({
+                opacity: 0,
+                zIndex: defaultZ - 1
+            }).eq(showIndex).css({
+                opacity: 1,
+                zIndex: defaultZ
+            });
+
+            // 組出右下的按鈕
+            var str = '';
+            for (var i = 0; i < $ad.length; i++) {
+                str += '<a href="#">' + (i + 1) + '</a>';
+            }
+
+            var $controlA = $('#abgne_fade_pic').append($('<div class="control">' + str + '</div>').css('zIndex', defaultZ + 1)).find('.control a');
+            // 當按鈕被點選時
+            // 若要變成滑鼠滑入來切換時, 可以把 click 換成 mouseover
+            $controlA.click(function () {
+                // 取得目前點擊的號碼
+                showIndex = $(this).text() * 1 - 1;
+                // 顯示相對應的區域並把其它區域變成透明
+                $ad.eq(showIndex).stop().fadeTo(fadeInSpeed, 1, function () {
+                    if (!isHover) {
+                        // 啟動計時器
+                        timer = setTimeout(autoClick, speed);
+                    }
+                }).css('zIndex', defaultZ).siblings('a').stop().fadeTo(fadeOutSpeed, 0).css('zIndex', defaultZ - 1);
+                // 讓 a 加上 .on
+                $(this).addClass('on').siblings().removeClass('on');
+                return false;
+            }).focus(function () {
+                $(this).blur();
+            }).eq(showIndex).addClass('on');
+            $ad.hover(function () {
+                isHover = true;
+                // 停止計時器
+                clearTimeout(timer);
+            }, function () {
+                isHover = false;
+                // 啟動計時器
+                timer = setTimeout(autoClick, speed);
+            })
+            // 自動點擊下一個
+            function autoClick() {
+                if (isHover) return;
+                showIndex = (showIndex + 1) % $controlA.length;
+                $controlA.eq(showIndex).click();
+            }
+            // 啟動計時器
+            timer = setTimeout(autoClick, speed);
+        });
+        function MM_swapImgRestore() { //v3.0
+            var i, x, a = document.MM_sr; for (i = 0; a && i < a.length && (x = a[i]) && x.oSrc; i++) x.src = x.oSrc;
+        }
+        function MM_preloadImages() { //v3.0
+            var d = document; if (d.images) {
+                if (!d.MM_p) d.MM_p = new Array();
+                var i, j = d.MM_p.length, a = MM_preloadImages.arguments; for (i = 0; i < a.length; i++)
+                    if (a[i].indexOf("#") != 0) { d.MM_p[j] = new Image; d.MM_p[j++].src = a[i]; }
+            }
+        }
+
+        function MM_findObj(n, d) { //v4.01
+            var p, i, x; if (!d) d = document; if ((p = n.indexOf("?")) > 0 && parent.frames.length) {
+                d = parent.frames[n.substring(p + 1)].document; n = n.substring(0, p);
+            }
+            if (!(x = d[n]) && d.all) x = d.all[n]; for (i = 0; !x && i < d.forms.length; i++) x = d.forms[i][n];
+            for (i = 0; !x && d.layers && i < d.layers.length; i++) x = MM_findObj(n, d.layers[i].document);
+            if (!x && d.getElementById) x = d.getElementById(n); return x;
+        }
+
+        function MM_swapImage() { //v3.0
+            var i, j = 0, x, a = MM_swapImage.arguments; document.MM_sr = new Array; for (i = 0; i < (a.length - 2) ; i += 3)
+                if ((x = MM_findObj(a[i])) != null) { document.MM_sr[j++] = x; if (!x.oSrc) x.oSrc = x.src; x.src = a[i + 2]; }
+        }
+
+        function LoginSubmitFm() {
+            var strUserID = $('#strUserID').val();
+            var strPwd = $('#strPwd').val();
+            if (strUserID == "")
+            {
+                alert('請輸入帳號');
+                return false;
+            }
+
+            if (strPwd == "") {
+                alert('請輸入密碼');
+                return false;
+            }
+
+            $('#Fm').submit();
+        }
+
+        function LogOutFm(url) {
+            if (confirm("確定登出嗎？")) {
+                window.location.href = url;
+            }
+        }
+
+        jQuery(window).load(function () {
+            //執行倒數計時
+            if ($('#LoginFlag').val() != "") {
+                $('#counter').show();
+                clock();
+            }
+        });
+
+        function logOut() {
+            alert('您已閒置過久，故系統已將您登出');
+            window.location.href = '/Account/LogOut';
+        }
+
+        function enterKeyDown(event) {
+            if (event.keyCode == 13) {
+                LoginSubmitFm();
+            }
+        }
+
+        function clearWord(value) {
+            if (value == '請輸入關鍵字') {
+                document.getElementById('search').value = "";
+            }
+        }
+        function FogPwd(url) {
+            url += "?width=900&height=450";
+            tb_show('忘記密碼', url, null);
+        }
+
+        function SearchData() {
+
+            var value = $('#search').val();
+
+            if (value != "請輸入關鍵字" && value != "") {
+                var url = '/Map/SearchList?search='+ value;
+                window.location.href = url;
+            } else {
+                alert("請輸入您要搜尋的關鍵字");
+                return false;
+            }
+        }
+
+
+        function submitCalamity(value, url)
+        {
+
+            if(CheckValue("rdl_"+value) != "")
+            {
+                if(CheckValue("rdl_"+value) == "Y"){
+                    alert("您點選了有災損，系統將自動幫您導至校安即時通首報。");
+                    window.location.href=url;
+                }else{
+                    ////點選無災損
+                    if(CheckValue('system'+value) == "")
+                    {
+                        alert(' •請選擇您的學制');
+                    }
+
+                    var strUserId = "B160001";
+                    var strAccount = "B160001";
+                    $.ajax({
+                        type: "POST",
+                        url: "/Calamity/SetCalamityStatus",
+                        contentType:"application/x-www-form-urlencoded",
+                        data: "CalamityId=" + value + "&CalamityId=" + value + "&UserId=" + strUserId + "&Account=" + strAccount + "&Status=" + CheckValue("rdl_"+value) + "&system="+ CheckValue("system"+value),
+                        success: function (msg) {
+                            if(msg == "1")
+                            {
+                                alert("已回報無災損");
+                                history.go(0);
+                                //alert("已回報無災損，因應模擬訓練，系統將自動幫您登出");
+                                //window.location.href = "/Account/LogOut";
+                            }
+                            else
+                            {
+                                alert("回報無災損失敗");
+                                history.go(0);
+                            }
+                            //alert(msg);
+                            
+                            //history.go(0);
+
+                        }
+                    });
+
+                }
+            }
+            else
+            {
+                alert(" •請點選【是否有無災損】");
+            }
+        }
+
+        //隱私權
+        function ShowPrivacy(url) {
+            url += "?width=900&height=450";
+            tb_show('隱私權政策', url, null);
+        }
+
+    </script>
+
+<script type="text/javascript">
+        function ReTime() {
+            url = '/Account/ResetTime' + "?TB_iframe=false&width=400&height=180";
+            tb_show_opacity("校安通報系統登出通知", url, false);
+        }
+    </script></head>
+    
+
+<body>
+    <input type="hidden" id="LoginFlag" value="CityInfo.Library.SessionObject">
+    <div class="downbg">
+        <div class="topMenu">
+                <table summary="影像區編排表格" width="750px" border="0" cellpadding="0" cellspacing="0">
+                    <tbody><tr>
+                        <td width="270" valign="top" nowrap="nowrap">
+                            <div id="counter" style="display: none">
+                                <form name="formnow">
+                                     &nbsp;&nbsp;&nbsp;&nbsp;
+                                    <input type="button" value="重新計時" class="btn5" onclick="clock2();">
+                                    &nbsp;&nbsp;登入倒數計時：
+                                    <span style="font-size:17px" id="mm"></span>分<span style="font-size:17px" id="ss"></span>秒
+                                </form>
+                            </div>
+                        </td>
+                        <td width="130" valign="top">
+                            <input type="text" id="search" name="search" class="serinput" value="請輸入關鍵字" onclick="clearWord(this.value)"></td>
+                        <td width="60"><a href="file:///home/rawr/github/temp_shit/123#" onclick="SearchData();" class="serchicon" title="搜尋">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a></td>
+                        <td width="240"><a accesskey="C" href="file:///" class="topicon1" title="回首頁">回首頁</a><a href="mailto:csrc@mail.moe.gov.tw" class="topicon2" title="意見信箱">意見信箱</a><a href="file:///Map" class="topicon3" title="網站導覽">網站導覽</a></td>
+                    </tr>
+                </tbody></table>
+        </div>
+        <div class="idxWrap">
+            <div class="headerRow">
+                <div class="logo"><a href="file:///">教育部校園安全暨災害防救通報處理中心</a></div>
+
+            </div>
+            <div class="page">
+                <table summary="影像區編排表格" width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td colspan="3">
+                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                <tbody><tr>
+                                    <td width="220" align="center" valign="top" class="idxpgmen">
+                                        <br>
+                                        <br>
+                                            <table width="200" style="height: 120px" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody><tr>
+                                                    <td width="6%" height="51" align="right">&nbsp;</td>
+                                                    <td width="21%"><span class="green">學校：</span><br>
+                                                    </td>
+                                                    <td align="left">&nbsp;
+                                                                <u><a href="file:///CenterManages/UserData/Edit?user_id=B160001">澎湖縣教育處</a></u>
+                                                        <br>
+                                                        <br>
+                                                            <u><a href="file:///CenterManages/UserData/Edit?user_id=B160001">陳憶茹</a></u>
+                                                        
+                                                        </td>
+                                                    <td>
+                                                        <img src="file:///Content/Images/Front/logout.png" width="40" height="40" style="cursor:pointer" onclick="LogOutFm(&#39;/Account/LogOut&#39;);"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="3" style="text-align: left">&nbsp;
+                                                        <img alt="*" src="file:///Content/Images/Front/date_04.png"><a href="file:///SchoolContact">緊急聯絡人</a>
+                                                    <br>&nbsp;
+                                                        
+                                                    </td>
+                                                </tr>
+
+                                            </tbody></table>
+
+                                        <!--menu左方主選單-->
+                                        <div class="menutitle">導覽選單</div>
+                                        <ul class="leftmenu">
+                                            <li><a href="file:///BriefIntroduction">校安簡介</a></li>
+                                            <li><a href="file:///JobBank">校安人力</a></li>
+                                            <li><a href="file:///BulletinBoard/NewsIndex">最新消息</a></li>
+                                            <li><a href="file:///LawRelation">相關法規</a></li>
+                                            <li><a href="file:///FileManage">下載專區</a></li>
+                                            <li><a href="file:///RelatedLink">相關連結</a></li>
+                                            <li><a href="file:///Learning">研習活動</a></li>
+                                            <li><a href="file:///FAQ">FAQ</a></li>
+                                            <li><a href="https://csrc.edu.tw/CsrcWeb" target="_blank">舊版校安系統</a></li>
+                                            <li><a href="https://csrc.edu.tw/PracticeNewCsrc" target="_blank">校安系統練習版</a></li>
+                                        </ul>
+                                        <ul class="link">
+                                            <marquee direction="up" scrollamount="2" scrolldelay="10" id="xiaoqing" onmouseover="xiaoqing.stop()" onmouseout="xiaoqing.start()">
+                                            <li><a target="_blank" href="https://csrc.edu.tw/CsrcDrugs/"><img width="172px" height="40px" src="file:///Content/WebSiteImage/20140121124230-007.jpg"></a></li>
+                                            <li><a target="_blank" href="https://csrc.edu.tw/bully/"><img width="172px" height="40px" src="file:///Content/WebSiteImage/20140121124119-004.jpg"></a></li>
+                                            <li><a target="_blank" href="http://enc.moe.edu.tw/"><img width="172px" height="40px" src="file:///Content/WebSiteImage/20140121123713-20130826090518_logo_01.jpg"></a></li>
+                                            <li><a target="_blank" href="https://csrc.edu.tw/NewCsrcHouse/"><img width="172px" height="40px" src="file:///Content/WebSiteImage/20140121124048-003.jpg"></a></li>
+                                            <li><a target="_blank" href="https://csrcsahb.moe.edu.tw/index.php?target=login.php"><img width="172px" height="40px" src="file:///Content/WebSiteImage/20140121124015-002.jpg"></a></li>
+                                            <li><a target="_blank" href="http://rich.nyc.gov.tw/"><img width="172px" height="40px" src="file:///Content/WebSiteImage/20140121124207-006.JPG"></a></li>
+                                            <li><a target="_blank" href="http://www.taiwanjobs.gov.tw/Internet/index/index.aspx"><img width="172px" height="40px" src="file:///Content/WebSiteImage/20150730055525-%E5%8F%B0%E7%81%A3%E5%B0%B1%E6%A5%AD%E9%80%9A.jpg"></a></li>
+                                            <li><a target="_blank" href="http://www.165.gov.tw/"><img width="172px" height="40px" src="file:///Content/WebSiteImage/20140416032340-165icon.jpg"></a></li>
+                                            </marquee>
+                                            <a href="file:///RelatedWebSite" class="more">更多</a>
+                                            <div class="clear"></div>
+                                        </ul>
+                                    </td>
+                                    <td valign="top" class="idxpgmid">
+                                        <div class="topright">
+                                                <ul class="topbtn">
+
+                                                    <li>
+                                                            <a href="file:///CenterManages/UserData/Index" class="topbtn5">權限管理</a>
+                                                    </li>
+                                                        <li><a href="file:///EventStatistics" class="topbtn1">數據統計</a></li>
+                                                    <li><a href="file:///Operation" class="topbtn3">表報作業</a></li>
+                                                        <li><a href="file:///Messenger/InquiryIndex" class="topbtn4">校安即時通</a></li>
+
+                                                </ul>
+                                            <div class="clear"></div>
+                                        </div>
+                                        <div class="flashBanner">
+                                            <div id="abgne_fade_pic">
+                                                <a target="_blank" href="http://enc.moe.edu.tw/" class="ad">
+                                                    <img src="file:///Content/Images/Front/1s.jpg" alt="banner圖片"></a>
+                                                <a target="_blank" href="https://csrc.edu.tw/bully/" class="ad">
+                                                    <img src="file:///Content/Images/Front/2s.jpg" alt="banner圖片"></a>
+                                                <a target="_blank" href="https://csrc.edu.tw/NewCsrcHouse" class="ad">
+                                                    <img src="file:///Content/Images/Front/ban1.jpg" alt="banner圖片"></a>
+                                                <a target="_blank" href="https://csrcsahb.moe.edu.tw/index.php?target=login.php" class="ad">
+                                                    <img src="file:///Content/Images/Front/ban2.jpg" alt="banner圖片"></a>
+                                                <a target="_blank" href="https://csrc.edu.tw/CsrcDrugs/" class="ad">
+                                                    <img src="file:///Content/Images/Front/ban3.jpg" alt="banner圖片"></a>
+                                            </div>
+                                        </div>
+                                        <br>
+                                        <div class="idxnew">
+                                            <div class="idxnewtd">
+                                                <!--災損專區-->
+                                                <table summary="影像區編排表格" width="100%" border="0" cellspacing="0" cellpadding="0">
+
+
+
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <div class="idxnew">
+                                            <div class="idxnt">
+                                                
+                                                <table summary="影像區編排表格" width="100%" border="0" cellspacing="4" cellpadding="4">
+                                                    <tbody><tr>
+                                                        <td style="width:15%">
+                                                            <a href="file:///Account/Index" class="newtitb">最新消息</a>
+                                                        </td>
+                                                        
+                                                        <td align="left">
+                                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;<img src="file:///Content/Images/Front/red.gif" width="16" height="16">未點閱</span> 
+                                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;<img src="file:///Content/Images/Front/green.gif" width="16" height="16">已點閱 </span>
+                                                            <span>&nbsp;&nbsp;&nbsp;&nbsp;<img src="file:///Content/Images/Front/light-Yellow.gif" width="16" height="16">逾時點閱</span>
+
+                                                            &nbsp;　　&nbsp;
+                                                        </td>
+                                                    </tr>
+                                                </tbody></table>
+                                                <div class="idxnewtd">
+                                                    <!--公告區-->
+                                                    <form id="SearchFm" name="SearchFm" method="post">
+                                                    <table summary="影像區編排表格" width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                                <!--電子公佈欄-->
+                                                                <!--學校登入-->
+                                                                <!--國中以下-->
+                                                                    <!--教育行政單位登入及高中職以上-->
+                                                                <tbody><tr>
+                                                                    <th width="12%" align="center">公告日期</th>
+                                                                    <th width="7%" align="center">類別</th>
+                                                                    <th width="7%" align="center">點閱情形</th>
+                                                                    <th width="37%" align="left">標    題</th>
+                                                                    <th width="10%" align="center">點閱期限</th>
+                                                                    
+                                                                    <th width="9%" align="center">點閱數</th>
+                                                                    <th width="9%" align="center">點閱學校</th>
+                                                                    <th width="9%" align="center">承 辦 人</th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align:center" class="day">2015-08-24<br>18:46:45</td>
+                                                                    <td align="center" class="green">一般行政</td>
+                                                                    <td align="center" class="green">
+                                                                            <img src="file:///Content/Images/Front/green.gif" width="16" height="16">
+
+                                                                    </td>
+                                                                    <td align="left">
+                                                                            <img src="file:///home/rawr/github/Content/Images/Front/but_hot.gif" width="40" height="19" align="absmiddle">
+
+                                                                            <a href="file:///BulletinBoard/CheckBoardData?sno=1308&MergedId=4262d494cd92421b8d2d8d6faddf548f&from=A">(資料更新)公告「104年度國家防災日」高中職以下學制學校及幼兒園已填報演練日期資料</a>
+
+
+                                                                        <font style="color:Red">更新</font>
+                                                                    </td>
+                                                                    <td align="left"> <span>2015/08/24 ~ <br>2015/08/28</span> </td>
+                                                                    <td align="center">
+                                                                        <span id="span_1308">
+                                                                            <input type="button" class="btn5" value="列出" onclick="CalculateClickRate(&#39;1308&#39;);">
+                                                                        </span>
+                                                                        <span id="span2_1308" style="display:none">
+                                                                            <span id="spanValue_1308"></span>
+                                                                            <input type="button" class="btn5" value="重新整理" onclick="CalculateClickRate(&#39;1308&#39;);">
+                                                                        </span>
+                                                                    </td>
+
+                                                                    <td align="center">
+                                                                            <input type="button" class="btn5" id="a_1308" onclick="javascript:window.location.href=&#39;/BulletinBoard/EduReply?ec_bulletin_sno=1308&#39;" value="列出">
+
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>邱光慶<br>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align:center" class="day">2015-08-07<br>17:28:02</td>
+                                                                    <td align="center" class="green">災害防救</td>
+                                                                    <td align="center" class="green">
+
+                                                                    </td>
+                                                                    <td align="left">
+                                                                            <img src="file:///home/rawr/github/Content/Images/Front/but_general.gif" width="40" height="19" align="absmiddle">
+
+                                                                            <a href="file:///BulletinBoard/CheckData?sno=1294&MergedId=22805d8c8e844574ba17cee31bc8a3a7">大雨特報</a>  
+
+
+                                                                        <font style="color:Red">更新</font>
+                                                                    </td>
+                                                                    <td align="left"></td>
+                                                                    <td align="center">
+                                                                    </td>
+
+                                                                    <td align="center">
+
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>系統管理者<br>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align:center" class="day">2015-08-23<br>20:35:05</td>
+                                                                    <td align="center" class="green">災害防救</td>
+                                                                    <td align="center" class="green">
+                                                                            <img src="file:///Content/Images/Front/green.gif" width="16" height="16">
+
+                                                                    </td>
+                                                                    <td align="left">
+                                                                            <img src="file:///home/rawr/github/Content/Images/Front/but_hot.gif" width="40" height="19" align="absmiddle">
+
+                                                                            <a href="file:///BulletinBoard/CheckBoardData?sno=1306&MergedId=32bf5981966d4fc98592241f94f0cbed&from=A">教育部校安中心天鵝颱風警報解除通知</a>
+
+
+                                                                        <font style="color:Red">更新</font>
+                                                                    </td>
+                                                                    <td align="left"> <span>2015/08/23 ~ <br>2015/08/26</span> </td>
+                                                                    <td align="center">
+                                                                        <span id="span_1306">
+                                                                            <input type="button" class="btn5" value="列出" onclick="CalculateClickRate(&#39;1306&#39;);">
+                                                                        </span>
+                                                                        <span id="span2_1306" style="display:none">
+                                                                            <span id="spanValue_1306"></span>
+                                                                            <input type="button" class="btn5" value="重新整理" onclick="CalculateClickRate(&#39;1306&#39;);">
+                                                                        </span>
+                                                                    </td>
+
+                                                                    <td align="center">
+                                                                            <input type="button" class="btn5" id="a_1306" onclick="javascript:window.location.href=&#39;/BulletinBoard/JuniorSchoolReply?ec_bulletin_sno=1306&#39;" value="列出">
+
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>丁瑞昇<br>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align:center" class="day">2015-08-21<br>16:16:15</td>
+                                                                    <td align="center" class="green">重要公告</td>
+                                                                    <td align="center" class="green">
+
+                                                                    </td>
+                                                                    <td align="left">
+                                                                            <img src="file:///home/rawr/github/Content/Images/Front/but_general.gif" width="40" height="19" align="absmiddle">
+
+                                                                            <a href="file:///BulletinBoard/CheckData?sno=1305&MergedId=073d5b93870f472a8c43b54e76d8e59b">中央氣象局今(21)日14時30分發布大雨特報!!</a>  
+
+
+                                                                        <font style="color:Red">更新</font>
+                                                                    </td>
+                                                                    <td align="left"></td>
+                                                                    <td align="center">
+                                                                    </td>
+
+                                                                    <td align="center">
+
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>邱光慶<br>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align:center" class="day">2015-08-14<br>16:13:01</td>
+                                                                    <td align="center" class="green">重要公告</td>
+                                                                    <td align="center" class="green">
+
+                                                                    </td>
+                                                                    <td align="left">
+                                                                            <img src="file:///home/rawr/github/Content/Images/Front/but_general.gif" width="40" height="19" align="absmiddle">
+
+                                                                            <a href="file:///BulletinBoard/CheckData?sno=1301&MergedId=292e536969bc4b71bea0fa4f6e405b45">請各級學校及幼兒園於104年9月1日前，至內政部臺灣COME(抗)震網(http://www.comedrill.com.tw/)完成註冊相關事宜(註冊操作手冊請參考並自行下載運用)!!</a>  
+
+
+                                                                        <font style="color:Red">更新</font>
+                                                                    </td>
+                                                                    <td align="left"></td>
+                                                                    <td align="center">
+                                                                    </td>
+
+                                                                    <td align="center">
+
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>邱光慶<br>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align:center" class="day">2015-07-31<br>11:45:31</td>
+                                                                    <td align="center" class="green">校園安全</td>
+                                                                    <td align="center" class="green">
+                                                                            <img src="file:///Content/Images/Front/green.gif" width="16" height="16">
+
+                                                                    </td>
+                                                                    <td align="left">
+                                                                            <img src="file:///home/rawr/github/Content/Images/Front/but_now.gif" width="40" height="19" align="absmiddle">
+
+                                                                            <a href="file:///BulletinBoard/CheckBoardData?sno=1286&MergedId=33bd9033764e4e15bb2fce386b40096c&from=A">請高中職（含幼兒園）以下學校至表報作業區填報「學校網頁連結警政署『165防詐騙專區』情形調查表」！！</a>
+
+
+                                                                        <font style="color:Red">更新</font>
+                                                                    </td>
+                                                                    <td align="left"> <span>2015/07/31 ~ <br>2015/08/31</span> </td>
+                                                                    <td align="center">
+                                                                        <span id="span_1286">
+                                                                            <input type="button" class="btn5" value="列出" onclick="CalculateClickRate(&#39;1286&#39;);">
+                                                                        </span>
+                                                                        <span id="span2_1286" style="display:none">
+                                                                            <span id="spanValue_1286"></span>
+                                                                            <input type="button" class="btn5" value="重新整理" onclick="CalculateClickRate(&#39;1286&#39;);">
+                                                                        </span>
+                                                                    </td>
+
+                                                                    <td align="center">
+                                                                            <input type="button" class="btn5" id="a_1286" onclick="javascript:window.location.href=&#39;/BulletinBoard/JuniorSchoolReply?ec_bulletin_sno=1286&#39;" value="列出">
+
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>丁瑞昇<br>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align:center" class="day">2015-08-20<br>12:59:40</td>
+                                                                    <td align="center" class="green">重要公告</td>
+                                                                    <td align="center" class="green">
+
+                                                                    </td>
+                                                                    <td align="left">
+                                                                            <img src="file:///home/rawr/github/Content/Images/Front/but_general.gif" width="40" height="19" align="absmiddle">
+
+                                                                            <a href="file:///BulletinBoard/CheckData?sno=1304&MergedId=a7d0c69f74774f5296d3032263348568">「天鵝颱風」今(20)日已轉為強烈颱風，請各級學校、館所及幼兒園至本部校安中心網頁電子公布欄點閱「天鵝颱風」整備通報，加強防颱整備各項工作，嚴防淹水、坍方、落石、土石流，並請加強掌握學校師生參加戶外活動情形及完成「天鵝颱風整備系統」填報作業。</a>  
+
+
+                                                                        <font style="color:Red">更新</font>
+                                                                    </td>
+                                                                    <td align="left"></td>
+                                                                    <td align="center">
+                                                                    </td>
+
+                                                                    <td align="center">
+
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>邱光慶<br>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align:center" class="day">2015-08-19<br>16:47:21</td>
+                                                                    <td align="center" class="green">校園安全</td>
+                                                                    <td align="center" class="green">
+                                                                            <img src="file:///Content/Images/Front/green.gif" width="16" height="16">
+
+                                                                    </td>
+                                                                    <td align="left">
+                                                                            <img src="file:///home/rawr/github/Content/Images/Front/but_now.gif" width="40" height="19" align="absmiddle">
+
+                                                                            <a href="file:///BulletinBoard/CheckBoardData?sno=1303&MergedId=58fb0aa5705e41bda5a7ca68e3517913&from=A">公告天鵝颱風整備通報</a>
+
+
+                                                                        <font style="color:Red">更新</font>
+                                                                    </td>
+                                                                    <td align="left"> <span>2015/08/19 ~ <br>2015/08/21</span> </td>
+                                                                    <td align="center">
+                                                                        <span id="span_1303">
+                                                                            <input type="button" class="btn5" value="列出" onclick="CalculateClickRate(&#39;1303&#39;);">
+                                                                        </span>
+                                                                        <span id="span2_1303" style="display:none">
+                                                                            <span id="spanValue_1303"></span>
+                                                                            <input type="button" class="btn5" value="重新整理" onclick="CalculateClickRate(&#39;1303&#39;);">
+                                                                        </span>
+                                                                    </td>
+
+                                                                    <td align="center">
+                                                                            <input type="button" class="btn5" id="a_1303" onclick="javascript:window.location.href=&#39;/BulletinBoard/JuniorSchoolReply?ec_bulletin_sno=1303&#39;" value="列出">
+
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>邱光慶<br>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align:center" class="day">2015-08-18<br>18:57:10</td>
+                                                                    <td align="center" class="green">一般行政</td>
+                                                                    <td align="center" class="green">
+                                                                            <img src="file:///Content/Images/Front/green.gif" width="16" height="16">
+
+                                                                    </td>
+                                                                    <td align="left">
+                                                                            <img src="file:///home/rawr/github/Content/Images/Front/but_hot.gif" width="40" height="19" align="absmiddle">
+
+                                                                            <a href="file:///BulletinBoard/CheckBoardData?sno=1302&MergedId=84c95ad6aef848828cfe4dacd347426a&from=A">請督促轄屬學校落實管制校園霸凌個案輔導作為及加強防制校園霸凌教育宣導工作</a>
+
+
+                                                                        <font style="color:Red"></font>
+                                                                    </td>
+                                                                    <td align="left"> <span>2015/08/18 ~ <br>2015/08/27</span> </td>
+                                                                    <td align="center">
+                                                                        <span id="span_1302">
+                                                                            <input type="button" class="btn5" value="列出" onclick="CalculateClickRate(&#39;1302&#39;);">
+                                                                        </span>
+                                                                        <span id="span2_1302" style="display:none">
+                                                                            <span id="spanValue_1302"></span>
+                                                                            <input type="button" class="btn5" value="重新整理" onclick="CalculateClickRate(&#39;1302&#39;);">
+                                                                        </span>
+                                                                    </td>
+
+                                                                    <td align="center">
+                                                                            <input type="button" class="btn5" id="a_1302" onclick="javascript:window.location.href=&#39;/BulletinBoard/EduReply?ec_bulletin_sno=1302&#39;" value="列出">
+
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>洪嘉良<br>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="text-align:center" class="day">2015-08-14<br>11:03:34</td>
+                                                                    <td align="center" class="green">重要公告</td>
+                                                                    <td align="center" class="green">
+
+                                                                    </td>
+                                                                    <td align="left">
+                                                                            <img src="file:///home/rawr/github/Content/Images/Front/but_general.gif" width="40" height="19" align="absmiddle">
+
+                                                                            <a href="file:///BulletinBoard/CheckData?sno=1300&MergedId=c04957a58fa54a22a9f1c869bd5fe23d">104年國家防災日地震避難掩護演練高中職以下學制學校預演日期填報系統，預計於104年8月17日起開放於「表報作業區」進行填報!!</a>  
+
+
+                                                                        <font style="color:Red"></font>
+                                                                    </td>
+                                                                    <td align="left"></td>
+                                                                    <td align="center">
+                                                                    </td>
+
+                                                                    <td align="center">
+
+                                                                    </td>
+                                                                    <td align="center">
+                                                                        <p>邱光慶<br>
+                                                                        </p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td align="right" colspan="8"><a href="file:///BulletinBoard/BoardIndex" class="more"></a></td>
+                                                                </tr>
+                                                        </tbody></table>
+                                                    </form>
+                                                </div>
+
+                                                <div class="clear"></div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+                                    <td width="14" valign="top" class="idxpgrig">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td class="page_d_left"></td>
+                                    <td valign="bottom" class="idxpgdown">【<span style="cursor:pointer" onclick="ShowPrivacy(&#39;/Account/Privacy&#39;)">隱私權宣告</span>】【<a href="file:///Account/InfoSecurity">資訊安全宣告</a>】</td>
+                                    <td valign="top" class="page_d_right"></td>
+                                </tr>
+                            </tbody></table>
+                        </td>
+                        </tr><tr>
+                </tr></tbody></table>
+            </div>
+            
+        </div>
+        <div class="footer">
+                <table summary="影像區編排表格" width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tbody><tr>
+                        <td nowrap="nowrap"><strong>校安中心地址</strong>：(100-50)台北市忠孝東路1段172號4樓   　
+                                    <strong>&nbsp;&nbsp;服務電話：</strong><span>(02)3343-7855、(02)3343-7856</span>
+
+                            &nbsp;&nbsp;<strong>傳真</strong>：(02)3343-7920、3343-7863
+                            
+                            <br>
+                            <strong>系統服務諮詢：市訊資訊有限公司</strong> <span>(02)5573-0706</span><span>&nbsp; &nbsp; &nbsp; &nbsp;　</span>
+                            <a href="mailto:service@cityinfo.com.tw" title="service@cityinfo.com.tw"><strong><u>系統操作服務信箱</u>：</strong>service@cityinfo.com.tw</a>&nbsp;&nbsp;&nbsp;&nbsp; <a href="mailto:csrc@mail.moe.gov.tw" title="csrc@mail.moe.gov.tw"><strong><u>教育部校安中心信箱</u>：</strong>csrc@mail.moe.gov.tw</a>
+                            
+                            <br>
+
+                            建議使用Internet Explorer7.0以上版本，瀏覽器及解析度1024*768 </td>
+                        <td align="right">瀏覽人次：4616873 | 目前線上人數：163
+                            <br>
+                            最後更新日期：2015/08/27</td>
+                    </tr>
+                </tbody></table>
+            </div>
+    </div>
+
+
+
+<script type="text/javascript">
+
+    
+
+
+    function result() {
+        window.location = '/Account/Index?bulletin_cate=B';
+
+    }
+    function submitFm() {
+        $('#page').val('1');
+        document.forms["SearchFm"].submit();
+    }
+
+    function checkNoCalamity(value, value2)
+    {
+        if(value2 == "Y")
+        {
+            $('#'+value).hide();
+            $('#'+value).find("input[type=radio]").attr("checked", false);
+        }else {
+            $('#'+value).show();
+        }
+    }
+
+    function CalculateClickRate(Sno)
+    {
+        $.ajax({
+            type: "POST",
+            url: "/BulletinBoard/CalculateClickRate",
+            data: "Sno=" + Sno ,
+            success: function (msg) {
+                $('#spanValue_'+Sno).html(msg);
+                $('#span_'+Sno).hide();
+                $('#span2_'+Sno).show();
+            }
+        });
+    }
+
+</script>
+
+  
+
+
+    
+    
+
+	
+    
+    
+
+</body></html>
