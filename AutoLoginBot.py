@@ -15,6 +15,7 @@ class MainWindow( QWidget ):
 	def __init__( self, parent = None ):
 		super( MainWindow, self ).__init__( parent )
 		self.setGeometry( 900, 300, 420, 620 )
+		self.setWindowTitle(u'Auto Login Bot')
 		self.mainPageItemArray = []
 		self.runList           = []
 		self.driverList        = []
@@ -174,7 +175,7 @@ class logWeb( QThread ):
 	def run( self ):
 		if len( self.keyList ) != 0:  
 			self.AqrData( self.keyList, self.loadImage )
-			self.threadDone.emit()
+		self.threadDone.emit()
 
 
 	def AqrData( self, keyList, loadImage ):
