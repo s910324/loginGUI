@@ -191,7 +191,7 @@ class logWeb( QThread ):
 
 			driver = webdriver.Chrome( './chromedriver', chrome_options = option )
 			self.threadDriver.emit( driver )	
-			driver.get( "https://csrc.edu.tw/" )
+			driver.get( "https://********/" )
 			driver = self.handleCookies( driver, index )
 			self.driverList.append( driver )
 
